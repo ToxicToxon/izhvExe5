@@ -230,17 +230,11 @@ public class Character2DMovement : MonoBehaviour
 			var falling = !mController.isGrounded && mFallTimeoutDelta <= 0.0f;
 
 			//
-			for(int i = 0; i < transform.childCount; i++)
-			{
-				GameObject model = transform.GetChild(i).gameObject;
-				if(i == 0)
-					animator =  model.GetComponent<Animator>();
-				else
-					animator = mSelector.charAnimator;
-				if(mController.velocity.x > 0)
-					model.transform.localEulerAngles = new Vector3(0, 0, 0);
-				else if(mController.velocity.x < 0)
-					model.transform.localEulerAngles = new Vector3(0, 180, 0);
+			GameObject model = transform.GetChild(0).gameObject;
+			if(mController.velocity.x > 0)
+				model.transform.localEulerAngles = new Vector3(0, 0, 0);
+			else if(mController.velocity.x < 0)
+				model.transform.localEulerAngles = new Vector3(0, 180, 0);
 				/*
 				* Task #1a: Passing properties to the Animator
 				* 
@@ -279,30 +273,29 @@ public class Character2DMovement : MonoBehaviour
 				*   * Current Animator instance: *animator*
 				*   * Animator methods: *SetFloat* and *SetBool*
 				*/
-				if(crouch)
-					animator.SetBool("Crouch", true);
-				else
-					animator.SetBool("Crouch", false);
-				animator.SetFloat("Speed", speed);
-				animator.SetFloat("MoveSpeed", moveSpeed);
-				if(jump)
-				{
-					animator.SetBool("Crouch", false);
-					animator.SetBool("Grounded", false);
-					animator.SetBool("Jump", true);
-				}
-				if(falling)
-				{
-					animator.SetBool("Crouch", false);
-					animator.SetBool("Grounded", false);
-					animator.SetBool("Jump", false);
-					animator.SetBool("Fall", true);
-				}
-				if(grounded)
-				{
-					animator.SetBool("Fall", false);
-					animator.SetBool("Grounded", true);
-				}
+			if(crouch)
+				animator.SetBool("Crouch", true);
+			else
+				animator.SetBool("Crouch", false);
+			animator.SetFloat("Speed", speed);
+			animator.SetFloat("MoveSpeed", moveSpeed);
+			if(jump)
+			{
+				animator.SetBool("Crouch", false);
+				animator.SetBool("Grounded", false);
+				animator.SetBool("Jump", true);
+			}
+			if(falling)
+			{
+				animator.SetBool("Crouch", false);
+				animator.SetBool("Grounded", false);
+				animator.SetBool("Jump", false);
+				animator.SetBool("Fall", true);
+			}
+			if(grounded)
+			{
+				animator.SetBool("Fall", false);
+				animator.SetBool("Grounded", true);
 			}
 		}
     }
